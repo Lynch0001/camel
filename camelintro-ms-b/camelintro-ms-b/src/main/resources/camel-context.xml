@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+	 http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+
+
+    <camelContext xmlns="http://camel.apache.org/schema/spring">
+
+        <route customId="true" id="route2">
+
+            <!-- Read files from input directory -->
+            <from uri="file://C:\Users\Lynch\projects\camel\camelintro-ms-a\camelintro-ms-a\src\main\resources\data\output" />
+
+            <!-- <log message="Route message from in queue to out queue with data ${body}" />
+            Transform content to UpperCase -->
+            <process ref="fileProcessor" />
+
+            <!-- Write converted file content -->
+            <to uri="activemq:queue:queue1in" />
+
+        </route>
+
+    </camelContext>
+
+
+
+
+    <bean id="activemq" class="org.apache.camel.component.jms.JmsComponent" >
+        <property name="connectionFactory">
+            <bean class="org.apache.activemq.ActiveMQConnectionFactory">
+                <property name="brokerURL" value="tcp://localhost:61616"/>
+                <property name="userName" value="admin"/>
+                <property name="password" value="admin"/>
+            </bean>
+        </property>
+    </bean>
+
+
+
+    <!--
+
+
+    <bean id="jmsConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="localhost:61616" />
+    </bean>
+    <bean id="pooledConnectionFactory" class="org.apache.activemq.pool.PooledConnectionFactory"
+          init-method="start" destroy-method="stop">
+        <property name="maxConnections" value="6" />
+        <property name="connectionFactory" ref="jmsConnectionFactory" />
+    </bean>
+
+    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="pooledConnectionFactory"/>
+    </bean>
+
+
+
+
+
+
+    <bean id="activemq" class="org.apache.camel.component.jms.JmsComponent" >
+        <property name="connectionFactory">
+            <bean class="org.apache.activemq.ActiveMQConnectionFactory">
+                <property name="brokerURL" value="vm://amq-broker?create=false"/>
+                <property name="userName" value="${activemq.username}"/>
+                <property name="password" value="${activemq.password}"/>
+            </bean>
+        </property>
+    </bean>
+
+
+            <bean id="jmsConnectionFactory"
+                  class="org.apache.activemq.ActiveMQConnectionFactory">
+                <property name="brokerURL" value="vm://localhost:61616" />
+                <property name="userName" value="admin"/>
+                <property name="password" value="admin"/>
+            </bean>
+
+            <bean id="pooledConnectionFactory"
+                  class="org.apache.activemq.pool.PooledConnectionFactory">
+                <property name="maxConnections" value="8" />
+                <property name="connectionFactory" ref="jmsConnectionFactory" />
+            </bean>
+
+            <bean id="jmsConfig" class="org.apache.camel.component.jms.JmsConfiguration">
+                <property name="connectionFactory" ref="pooledConnectionFactory"/>
+                <property name="transacted" value="false"/>
+                <property name="concurrentConsumers" value="10"/>
+            </bean>
+
+            <bean id="activemq"
+                  class="org.apache.activemq.camel.component.ActiveMQComponent">
+                <property name="configuration" ref="jmsConfig"/>
+            </bean>
+
+
+
+
+            -->
+
+    <bean id="fileProcessor" class="com.lynch.camelintromsb.processor.FileProcessor" />
+
+</beans>

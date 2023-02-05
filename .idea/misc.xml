@@ -4,6 +4,7 @@
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/camelintro-ms-a/camelintro-ms-a" />
     <file type="web" url="file://$PROJECT_DIR$/camelintro-ms-b/camelintro-ms-b" />
+    <file type="web" url="file://$PROJECT_DIR$/camelintro-ms-c/camelintro-ms-c" />
   </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="11" project-jdk-type="JavaSDK" />
 </project>

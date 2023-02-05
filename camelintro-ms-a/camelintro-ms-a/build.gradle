@@ -12,10 +12,22 @@ repositories {
 	mavenCentral()
 }
 
+configurations.implementation {
+	exclude group: 'org.apache.logging.log4j', module: 'log4j-to-slf4j'
+	exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+}
+
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.apache.camel.springboot:camel-spring-boot-starter:3.20.1'
+	implementation 'org.springframework.boot:spring-boot-starter-log4j2:2.5.3'
+	implementation('org.apache.camel:camel-jms:3.19.0')
+	implementation('org.apache.camel:camel-core-all:3.19.0')
+	//implementation 'org.apache.activemq:activemq-all:5.17.0'
+	//implementation 'org.apache.activemq:activemq-pool:5.17.0'
+	//implementation('org.apache.activemq:activemq-camel:5.16.4')
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
